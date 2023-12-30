@@ -6,7 +6,9 @@ import (
 	"slices"
 )
 
-// Find largest prime factor of 600851475143
+// Find largest prime factor of N
+
+const N = 600851475143
 
 func factors(n int) []int {
 	var a, b []int
@@ -32,7 +34,7 @@ func isPrime(n int) bool {
 }
 
 func main() {
-	for _, f := range factors(600851475143) {
+	for _, f := range factors(N) {
 		if isPrime(f) {
 			fmt.Println(f)
 			return

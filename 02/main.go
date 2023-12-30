@@ -1,18 +1,17 @@
 package main
 
-// Find sum of even Fibonacci numbers below four million
+import "fmt"
+
+// Find sum of even Fibonacci numbers below N
+
+const N = 4e6
 
 func main() {
 	sum := 0
-	a, b := 1, 2
-	for {
-		if b >= 4e6 {
-			break
-		}
+	for a, b := 1, 2; b < N; b, a = a+b, b {
 		if b%2 == 0 {
 			sum += b
 		}
-		b, a = a+b, b
 	}
-	println(sum)
+	fmt.Println(sum)
 }
