@@ -1,8 +1,26 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+	"slices"
+)
 
 // Find largest prime factor of 600851475143
+
+func factors(n int) []int {
+	var a, b []int
+	for i := 1; i <= int(math.Sqrt(float64(n))); i++ {
+		if n%i == 0 {
+			a = append(a, i)
+			if i != n/i {
+				b = append(b, n/i)
+			}
+		}
+	}
+	slices.Reverse(a)
+	return append(b, a...)
+}
 
 func isPrime(n int) bool {
 	for f := 2; f <= int(math.Sqrt(float64(n))); f++ {
@@ -14,16 +32,9 @@ func isPrime(n int) bool {
 }
 
 func main() {
-	n := 600851475143
-	for f := 1; f <= int(math.Sqrt(float64(n))); f++ {
-		if n%f == 0 && isPrime(n/f) {
-			println(n / f)
-			return
-		}
-	}
-	for f := int(math.Sqrt(float64(n))); f >= 1; f-- {
-		if n%f == 0 && isPrime(f) {
-			println(f)
+	for _, f := range factors(600851475143) {
+		if isPrime(f) {
+			fmt.Println(f)
 			return
 		}
 	}
