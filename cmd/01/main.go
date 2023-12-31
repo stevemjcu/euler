@@ -6,12 +6,16 @@ import "fmt"
 
 const N = 1000
 
-func main() {
+func solve(n int) int {
 	sum := 0
-	for n := 1; n < N; n++ {
-		if n%3 == 0 || n%5 == 0 {
-			sum += n
+	for i := 1; i < n; i++ {
+		if i%3 == 0 || i%5 == 0 {
+			sum += i
 		}
 	}
-	fmt.Println(sum)
+	return sum
+}
+
+func main() {
+	fmt.Println(solve(N))
 }

@@ -6,12 +6,24 @@ import "fmt"
 
 const N = 4e6
 
-func main() {
+func fibonacci(n int) []int {
+	var l []int
+	for a, b := 1, 2; b < n; b, a = a+b, b {
+		l = append(l, b)
+	}
+	return l
+}
+
+func solve(n int) int {
 	sum := 0
-	for a, b := 1, 2; b < N; b, a = a+b, b {
-		if b%2 == 0 {
-			sum += b
+	for _, f := range fibonacci(n) {
+		if f%2 == 0 {
+			sum += f
 		}
 	}
-	fmt.Println(sum)
+	return sum
+}
+
+func main() {
+	fmt.Println(solve(N))
 }

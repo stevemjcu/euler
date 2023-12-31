@@ -10,9 +10,9 @@ import (
 
 const N = 20
 
-func main() {
+func solve(n int) int {
 	res := 1
-	for i := 1; i <= N; i++ {
+	for i := 1; i <= n; i++ {
 		for j := res; ; j += res {
 			want, got := idioms.Range(i), idioms.Factors(j)
 			if i <= len(got) && slices.Compare(want, got[:i]) == 0 {
@@ -21,5 +21,9 @@ func main() {
 			}
 		}
 	}
-	fmt.Println(res)
+	return res
+}
+
+func main() {
+	fmt.Println(solve(N))
 }

@@ -31,13 +31,17 @@ func palindromes(size int) []int {
 	return l
 }
 
-func main() {
-	for _, p := range idioms.Reverse(palindromes(N * 2)) {
+func solve(n int) int {
+	for _, p := range idioms.Reverse(palindromes(n * 2)) {
 		for _, f := range idioms.Factors(p) {
-			if len(strconv.Itoa(f)) == N && len(strconv.Itoa(p/f)) == N {
-				fmt.Println(p)
-				return
+			if len(strconv.Itoa(f)) == n && len(strconv.Itoa(p/f)) == n {
+				return p
 			}
 		}
 	}
+	return 0
+}
+
+func main() {
+	fmt.Println(solve(N))
 }

@@ -19,11 +19,15 @@ func isPrime(n int) bool {
 	return true
 }
 
-func main() {
-	for _, f := range idioms.Reverse(idioms.Factors(N)) {
+func solve(n int) int {
+	for _, f := range idioms.Reverse(idioms.Factors(n)) {
 		if isPrime(f) {
-			fmt.Println(f)
-			return
+			return f
 		}
 	}
+	return 1
+}
+
+func main() {
+	fmt.Println(solve(N))
 }
