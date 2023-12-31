@@ -1,28 +1,14 @@
 package main
 
 import (
+	"euler/internal/idioms"
 	"fmt"
 	"math"
-	"slices"
 )
 
 // Find largest prime factor of N
 
 const N = 600851475143
-
-func factors(n int) []int {
-	var a, b []int
-	for i := 1; i <= int(math.Sqrt(float64(n))); i++ {
-		if n%i == 0 {
-			a = append(a, i)
-			if i != n/i {
-				b = append(b, n/i)
-			}
-		}
-	}
-	slices.Reverse(a)
-	return append(b, a...)
-}
 
 func isPrime(n int) bool {
 	for f := 2; f <= int(math.Sqrt(float64(n))); f++ {
@@ -34,7 +20,7 @@ func isPrime(n int) bool {
 }
 
 func main() {
-	for _, f := range factors(N) {
+	for _, f := range idioms.Reverse(idioms.Factors(N)) {
 		if isPrime(f) {
 			fmt.Println(f)
 			return

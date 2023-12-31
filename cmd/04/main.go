@@ -1,9 +1,9 @@
 package main
 
 import (
+	"euler/internal/idioms"
 	"fmt"
 	"math"
-	"slices"
 	"strconv"
 )
 
@@ -11,14 +11,13 @@ import (
 
 const N = 3
 
-// palindromes returns every palindrome with the length z
-func palindromes(z int) []int {
+func palindromes(size int) []int {
 	var l []int
-	lo := int(math.Pow(10, float64(z/2+z%2-1)))
+	lo := int(math.Pow(10, float64(size/2+size%2-1)))
 	hi := lo * 10
 	for i := lo; i < hi; i++ {
 		a := strconv.Itoa(i)
-		b := a[:len(a)-z%2]
+		b := a[:len(a)-size%2]
 		var s string
 		for _, r := range b {
 			s = string(r) + s
@@ -29,25 +28,13 @@ func palindromes(z int) []int {
 		}
 		l = append(l, n)
 	}
-	slices.Reverse(l)
-	return l
-}
-
-// factors returns every factor of x
-func factors(x int) [][2]int {
-	var l [][2]int
-	for i := 1; i <= int(math.Sqrt(float64(x))); i++ {
-		if x%i == 0 {
-			l = append(l, [2]int{i, x / i})
-		}
-	}
 	return l
 }
 
 func main() {
-	for _, p := range palindromes(N * 2) {
-		for _, f := range factors(p) {
-			if len(strconv.Itoa(f[0])) == N && len(strconv.Itoa(f[1])) == N {
+	for _, p := range idioms.Reverse(palindromes(N * 2)) {
+		for _, f := range idioms.Factors(p) {
+			if len(strconv.Itoa(f)) == N && len(strconv.Itoa(p/f)) == N {
 				fmt.Println(p)
 				return
 			}
