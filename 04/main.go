@@ -11,7 +11,7 @@ import (
 
 const N = 3
 
-// Returns all palindromes with the length z
+// palindromes returns every palindrome with the length z
 func palindromes(z int) []int {
 	var l []int
 	lo := int(math.Pow(10, float64(z/2+z%2-1)))
@@ -33,7 +33,7 @@ func palindromes(z int) []int {
 	return l
 }
 
-// Returns the factors of x
+// factors returns every factor of x
 func factors(x int) [][2]int {
 	var l [][2]int
 	for i := 1; i <= int(math.Sqrt(float64(x))); i++ {
@@ -45,11 +45,7 @@ func factors(x int) [][2]int {
 }
 
 func main() {
-	hi := int(math.Pow(10, N)) - 1
 	for _, p := range palindromes(N * 2) {
-		if p > hi*hi {
-			continue
-		}
 		for _, f := range factors(p) {
 			if len(strconv.Itoa(f[0])) == N && len(strconv.Itoa(f[1])) == N {
 				fmt.Println(p)
