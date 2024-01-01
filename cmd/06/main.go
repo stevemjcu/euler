@@ -11,9 +11,11 @@ import (
 const N = 100
 
 func solve(n int) int {
-	l := idioms.Range(n)
-	a := idioms.Reduce(l, func(e int) int { return e })
-	b := idioms.Reduce(l, func(e int) int { return e * e })
+	var a, b int
+	for _, x := range idioms.Range(n) {
+		a += x
+		b += x * x
+	}
 	return a*a - b
 }
 
