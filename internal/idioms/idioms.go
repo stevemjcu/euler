@@ -48,3 +48,10 @@ func Reduce[S ~[]E, E any, R Number](s S, f func(E) R) R {
 	}
 	return r
 }
+
+// Sum returns the sum of each element of the slice s.
+func Sum[S ~[]E, E Number](s S) E {
+	return Reduce(s, func(e E) E {
+		return e
+	})
+}
