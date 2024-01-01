@@ -8,8 +8,8 @@ const N = 4e6
 
 func fibonacci(n int) []int {
 	var l []int
-	for a, b := 1, 2; b < n; b, a = a+b, b {
-		l = append(l, b)
+	for a, b := 1, 2; a < n; a, b = b, a+b {
+		l = append(l, a)
 	}
 	return l
 }
