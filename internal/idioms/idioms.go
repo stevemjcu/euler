@@ -5,10 +5,6 @@ import (
 	"slices"
 )
 
-type Number interface {
-	int | int64 | float64
-}
-
 // Factors returns every factor of x in ascending order.
 func Factors(x int) []int {
 	var a, b []int
@@ -20,8 +16,7 @@ func Factors(x int) []int {
 			}
 		}
 	}
-	slices.Reverse(b)
-	return append(a, b...)
+	return append(a, Reverse(b)...)
 }
 
 // Range returns the slice representing [1..x].
@@ -40,18 +35,25 @@ func Reverse[S ~[]E, E any](s S) S {
 	return r
 }
 
-// Reduce applies an accumulative function to each element of the slice s.
-func Reduce[S ~[]E, E any, R Number](s S, f func(E) R) R {
-	var r R
-	for _, e := range s {
-		r += f(e)
-	}
-	return r
-}
+// To avoid setting a precedent, I will try to use for loops whenever possible
+// rather than trying to implement too many functional-style helpers.
 
-// Sum returns the sum of each element of the slice s.
-func Sum[S ~[]E, E Number](s S) E {
-	return Reduce(s, func(e E) E {
-		return e
-	})
-}
+//type Number interface {
+//	int | int64 | float64
+//}
+//
+//// Reduce applies an accumulative function to each element of the slice s.
+//func Reduce[S ~[]E, E any, R Number](s S, f func(E) R) R {
+//	var r R
+//	for _, e := range s {
+//		r += f(e)
+//	}
+//	return r
+//}
+//
+//// Sum returns the sum of each element of the slice s.
+//func Sum[S ~[]E, E Number](s S) E {
+//	return Reduce(s, func(e E) E {
+//		return e
+//	})
+//}
