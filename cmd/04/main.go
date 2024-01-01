@@ -18,11 +18,8 @@ func palindromes(size int) []int {
 	for i := lo; i < hi; i++ {
 		a := strconv.Itoa(i)
 		b := a[:len(a)-size%2]
-		var s string
-		for _, r := range b {
-			s = string(r) + s
-		}
-		n, err := strconv.Atoi(a + s)
+		r := string(idioms.Reverse([]rune(b)))
+		n, err := strconv.Atoi(a + r)
 		if err != nil {
 			panic(err)
 		}
