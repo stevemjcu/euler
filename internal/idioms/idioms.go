@@ -5,6 +5,10 @@ import (
 	"slices"
 )
 
+type Number interface {
+	int | int64 | float64
+}
+
 // Factors returns every factor of x in ascending order.
 func Factors(x int) []int {
 	var a, b []int
@@ -33,5 +37,14 @@ func Range(x int) []int {
 func Reverse[S ~[]E, E any](s S) S {
 	r := slices.Clone(s)
 	slices.Reverse(r)
+	return r
+}
+
+// Reduce applies an accumulative function to each element of the slice s.
+func Reduce[S ~[]E, E any, R Number](s S, f func(E) R) R {
+	var r R
+	for _, e := range s {
+		r += f(e)
+	}
 	return r
 }
