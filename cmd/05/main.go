@@ -14,7 +14,7 @@ func solve(n int) int {
 	res := 1
 	for i := 1; i <= n; i++ {
 		for j := res; ; j += res {
-			want, got := idioms.Range(i), idioms.Factors(j)
+			got, want := idioms.Factors(j), idioms.Range(i)
 			if i <= len(got) && slices.Compare(want, got[:i]) == 0 {
 				res = j
 				break
