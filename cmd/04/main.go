@@ -11,19 +11,22 @@ import (
 
 const N = 3
 
-func palindromes(size int) []int {
+func palindromes(n int) []int {
 	var l []int
-	lo := int(math.Pow(10, float64(size/2+size%2-1)))
+	if n == 1 {
+		l = append(l, 0)
+	}
+	lo := int(math.Pow(10, float64(n/2+n%2-1)))
 	hi := lo * 10
 	for i := lo; i < hi; i++ {
 		a := strconv.Itoa(i)
-		b := a[:len(a)-size%2]
+		b := a[:len(a)-n%2]
 		r := string(idioms.Reverse([]rune(b)))
-		n, err := strconv.Atoi(a + r)
+		p, err := strconv.Atoi(a + r)
 		if err != nil {
 			panic(err)
 		}
-		l = append(l, n)
+		l = append(l, p)
 	}
 	return l
 }
