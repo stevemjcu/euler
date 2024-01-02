@@ -19,15 +19,6 @@ func Factors(x int) []int {
 	return append(a, Reverse(b)...)
 }
 
-// Range returns the slice representing [1..x].
-func Range(x int) []int {
-	var l []int
-	for i := 1; i <= x; i++ {
-		l = append(l, i)
-	}
-	return l
-}
-
 // Reverse returns the reverse of the slice s.
 func Reverse[S ~[]E, E any](s S) S {
 	r := slices.Clone(s)
@@ -56,4 +47,12 @@ func Reverse[S ~[]E, E any](s S) S {
 //	return Reduce(s, func(e E) E {
 //		return e
 //	})
+//}
+//// Range returns the slice representing [1..x].
+//func Range(x int) []int {
+//	var l []int
+//	for i := 1; i <= x; i++ {
+//		l = append(l, i)
+//	}
+//	return l
 //}

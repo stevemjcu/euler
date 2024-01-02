@@ -1,7 +1,6 @@
 package main
 
 import (
-	"euler/internal/idioms"
 	"fmt"
 )
 
@@ -12,9 +11,9 @@ const N = 100
 
 func solve(n int) int {
 	var a, b int
-	for _, x := range idioms.Range(n) {
-		a += x
-		b += x * x
+	for i := 1; i <= n; i++ {
+		a += i
+		b += i * i
 	}
 	return a*a - b
 }
