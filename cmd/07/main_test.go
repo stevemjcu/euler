@@ -11,7 +11,7 @@ func TestPrimes(t *testing.T) {
 		want int
 	}{
 		{6, 13},
-		{N, 104743},
+		{10001, 104743},
 	}
 	for _, c := range cases {
 		t.Run(strconv.Itoa(c.n), func(t *testing.T) {

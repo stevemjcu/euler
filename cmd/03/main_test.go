@@ -11,7 +11,7 @@ func TestSolve(t *testing.T) {
 		want int
 	}{
 		{13195, 29},
-		{N, 6857},
+		{600851475143, 6857},
 	}
 	for _, c := range cases {
 		t.Run(strconv.Itoa(c.n), func(t *testing.T) {
