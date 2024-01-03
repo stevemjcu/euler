@@ -34,7 +34,7 @@ func parse(in string) [][]int {
 	return out
 }
 
-func solveDir(n int, m [][]int, dir vec) int {
+func reduce(n int, m [][]int, dir vec) int {
 	top := 0
 	for i := 0; i < len(m)-(n-1)*dir.y; i++ {
 		for j := 0; j < len(m)-(n-1)*dir.x; j++ {
@@ -50,10 +50,10 @@ func solveDir(n int, m [][]int, dir vec) int {
 
 func solve(n int, m [][]int) int {
 	top := 0
-	top = max(top, solveDir(n, m, vec{0, 1}))
-	top = max(top, solveDir(n, m, vec{1, 0}))
-	top = max(top, solveDir(n, m, vec{1, 1}))
-	top = max(top, solveDir(n, idioms.Reverse(m), vec{1, 1}))
+	top = max(top, reduce(n, m, vec{0, 1}))
+	top = max(top, reduce(n, m, vec{1, 0}))
+	top = max(top, reduce(n, m, vec{1, 1}))
+	top = max(top, reduce(n, idioms.Reverse(m), vec{1, 1}))
 	return top
 }
 
