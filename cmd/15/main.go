@@ -13,17 +13,17 @@ func toKey(x, y int) string {
 	return strconv.Itoa(x) + "-" + strconv.Itoa(y)
 }
 
-func getPaths(x, y, n int, cache map[string]int) int {
+func getPaths(x, y int, cache map[string]int) int {
 	res, ok := cache[toKey(x, y)]
 	if ok {
 		return res // cache hit
 	}
 	var a, b int
-	if x < n {
-		a = getPaths(x+1, y, n, cache)
+	if x > 0 {
+		a = getPaths(x-1, y, cache)
 	}
-	if y < n {
-		b = getPaths(x, y+1, n, cache)
+	if y > 0 {
+		b = getPaths(x, y-1, cache)
 	}
 	res = a + b
 	if res == 0 {
@@ -34,8 +34,8 @@ func getPaths(x, y, n int, cache map[string]int) int {
 }
 
 func main() {
-	for i := 1; i <= N; i++ {
-		cache := make(map[string]int)
-		fmt.Println(i, getPaths(0, 0, i, cache))
+	cache := make(map[string]int)
+	for i := 0; i <= N; i++ {
+		fmt.Println(i, getPaths(i, i, cache))
 	}
 }
