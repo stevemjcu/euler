@@ -1,26 +1,41 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // Find the number of possible right/down routes through an NxN grid
 
 const N = 20
 
-func getPaths(x, y, n int) int {
+func toKey(x, y int) string {
+	return strconv.Itoa(x) + "-" + strconv.Itoa(y)
+}
+
+func getPaths(x, y, n int, cache map[string]int) int {
+	res, ok := cache[toKey(x, y)]
+	if ok {
+		return res // cache hit
+	}
 	var a, b int
 	if x < n {
-		a = getPaths(x+1, y, n)
+		a = getPaths(x+1, y, n, cache)
 	}
 	if y < n {
-		b = getPaths(x, y+1, n)
+		b = getPaths(x, y+1, n, cache)
 	}
-	sum := a + b
-	if sum == 0 {
-		return 1 // base case
+	res = a + b
+	if res == 0 {
+		res = 1 // base case
 	}
-	return sum
+	cache[toKey(x, y)] = res
+	return res
 }
 
 func main() {
-	fmt.Println(getPaths(0, 0, N))
+	for i := 1; i <= N; i++ {
+		cache := make(map[string]int)
+		fmt.Println(i, getPaths(0, 0, i, cache))
+	}
 }
