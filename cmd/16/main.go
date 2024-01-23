@@ -11,13 +11,9 @@ func double(num []int) []int {
 	var res []int
 	carry := 0
 	for _, n := range idioms.Reverse(num) {
-		var m int
-		if n < 5 {
-			m, carry = n*2+carry, 0
-		} else {
-			m, carry = (n-5)*2+carry, 1
-		}
-		res = append(res, m)
+		// expressions evaluated first
+		n, carry = (n*2)%10+carry, (n*2)/10
+		res = append(res, n)
 	}
 	if carry == 1 {
 		res = append(res, carry)
@@ -26,7 +22,7 @@ func double(num []int) []int {
 }
 
 func main() {
-	num := []int{1} // init with 2^0
+	num := []int{1} // 2^0
 	for i := 0; i < N; i++ {
 		num = double(num)
 	}
