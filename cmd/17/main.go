@@ -3,6 +3,7 @@ package main
 import (
 	"euler/internal/idioms"
 	"fmt"
+	"slices"
 	"strconv"
 )
 
@@ -24,7 +25,7 @@ var tens = map[int]string{
 	1: "ten",
 	2: "twenty",
 	3: "thirty",
-	4: "fourty",
+	4: "forty",
 	5: "fifty",
 	6: "sixty",
 	7: "seventy",
@@ -59,43 +60,63 @@ func toDigits(n int) []int {
 }
 
 func toWords(n int) []string {
+	digits := toDigits(n)
+	// pass 1: handle digits
 	var res []string
-	for i, d := range idioms.Reverse(toDigits(n)) {
-		if i%3 == 0 && i/3 > 0 {
-			res = append(res, places[i/3])
-		}
+	for i, d := range idioms.Reverse(digits) {
 		switch i % 3 {
 		case 0: // ones
 			res = append(res, ones[d])
 		case 1: // tens
 			res = append(res, tens[d])
 		case 2: // hundreds
-			res = append(res, places[0], ones[d])
+			res = append(res, ones[d])
 		}
 	}
-	return idioms.Reverse(res)
-	//res, tmp := nil, idioms.Reverse(res)
-	//and := false
-	//for _, s := range tmp[:len(tmp)-1] {
-	//	// skip empty elements
-	//	if s == "" {
-	//		continue
-	//	}
-	//	// carry the and
-	//	if slices.Contains(places, s) {
-	//		and = true
-	//	} else if and {
-	//		res = append(res, "and")
-	//		and = false
-	//	}
-	//	res = append(res, s)
-	//}
-	//return res
+	// pass 2: handle teens
+	res, tmp := nil, idioms.Reverse(res)
+	for i, d := range tmp {
+		if d == "ten" && digits[i+1] != 0 {
+			tmp[i] = teens[digits[i+1]]
+			tmp[i+1] = ""
+		}
+		res = append(res, tmp[i])
+	}
+	// pass 3: handle places
+	res, tmp = nil, idioms.Reverse(res)
+	for i, d := range tmp {
+		if d == "" {
+			continue
+		}
+		if i/3 > 0 && !slices.Contains(res, places[i/3]) {
+			res = append(res, places[i/3])
+		} else if i%3 == 2 {
+			res = append(res, places[0])
+		}
+		res = append(res, d)
+	}
+	// pass 4: handle ands
+	res, tmp = nil, idioms.Reverse(res)
+	and := false
+	for _, d := range tmp {
+		if slices.Contains(places, d) {
+			and = true
+		} else if and {
+			res, and = append(res, "and"), false
+		}
+		res = append(res, d)
+	}
+	return res
 }
 
 func main() {
-	//for i := 1; i <= N; i++ {
-	//	fmt.Println(toWords(i))
-	//}
-	fmt.Println(toWords(101))
+	sum := 0
+	for i := 1; i <= N; i++ {
+		words, tmp := toWords(i), sum
+		for _, w := range words {
+			sum += len([]rune(w))
+		}
+		fmt.Println(i, words, sum-tmp)
+	}
+	fmt.Println(sum)
 }
