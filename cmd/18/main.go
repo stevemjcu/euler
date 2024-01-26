@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-//go:embed input.txt
+//go:embed input_large.txt
 var input string
 
 func parseGraph(input string) [][]int {
@@ -25,15 +25,26 @@ func parseGraph(input string) [][]int {
 	return res
 }
 
-func findMaxPathSum(i, j int, graph [][]int) int {
+func findMaxPathSum(i, j int, graph, cache [][]int) int {
 	if i >= len(graph) {
 		return 0
 	}
-	a := findMaxPathSum(i+1, j, graph)
-	b := findMaxPathSum(i+1, j+1, graph)
-	return graph[i][j] + max(a, b)
+	res := cache[i][j]
+	if res != 0 {
+		return res
+	}
+	a := findMaxPathSum(i+1, j, graph, cache)
+	b := findMaxPathSum(i+1, j+1, graph, cache)
+	res = graph[i][j] + max(a, b)
+	cache[i][j] = res
+	return res
 }
 
 func main() {
-	fmt.Println(findMaxPathSum(0, 0, parseGraph(input)))
+	graph := parseGraph(input)
+	var cache [][]int
+	for _, r := range graph {
+		cache = append(cache, make([]int, len(r)))
+	}
+	fmt.Println(findMaxPathSum(0, 0, graph, cache))
 }
