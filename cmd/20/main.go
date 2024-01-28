@@ -10,7 +10,7 @@ func toDigits(n int) []int {
 	return res
 }
 
-func add(a, b []int) []int {
+func longAdd(a, b []int) []int {
 	if len(a) < len(b) {
 		a, b = b, a
 	}
@@ -29,7 +29,7 @@ func add(a, b []int) []int {
 	return c
 }
 
-func multiply(a, b []int) []int {
+func longMultiply(a, b []int) []int {
 	var d []int
 	for i := len(b) - 1; i >= 0; i-- {
 		c := make([]int, len(b)-1-i)
@@ -42,7 +42,7 @@ func multiply(a, b []int) []int {
 		if carry != 0 {
 			c = append([]int{carry}, c...)
 		}
-		d = add(c, d)
+		d = longAdd(c, d)
 	}
 	return d
 }
@@ -54,17 +54,17 @@ func factorial(n int) int {
 	return n * factorial(n-1)
 }
 
-func factorialBigInt(n int) []int {
+func factorialBig(n int) []int {
 	if n == 1 {
 		return []int{1}
 	}
-	a, b := toDigits(n), factorialBigInt(n-1)
-	return multiply(a, b)
+	a, b := toDigits(n), factorialBig(n-1)
+	return longMultiply(a, b)
 }
 
 func main() {
 	sum := 0
-	for _, x := range factorialBigInt(100) {
+	for _, x := range factorialBig(100) {
 		sum += x
 	}
 	fmt.Println(sum)
