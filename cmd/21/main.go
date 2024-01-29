@@ -7,13 +7,12 @@ import (
 
 const N = 10000
 
-func properDivisors(n int) []int {
+func divisors(n int) []int {
 	var a, b []int
-	sqrt := int(math.Sqrt(float64(n)))
-	for i := 1; i <= sqrt; i++ {
+	for i := 1; i <= int(math.Sqrt(float64(n))); i++ {
 		if n%i == 0 {
 			a = append(a, i)
-			if i != 1 && i != sqrt {
+			if n/i != i {
 				b = append([]int{n / i}, b...)
 			}
 		}
@@ -25,7 +24,8 @@ func main() {
 	sums := make(map[int]int)
 	for i := 1; i < N; i++ {
 		sums[i] = 0
-		for _, x := range properDivisors(i) {
+		s := divisors(i)
+		for _, x := range s[:len(s)-1] {
 			sums[i] += x
 		}
 	}
