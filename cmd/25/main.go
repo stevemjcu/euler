@@ -40,9 +40,10 @@ func solveCustom() {
 
 func solveBuiltIn() {
 	a, b, c := big.NewInt(1), big.NewInt(1), &big.Int{}
-	limit, i := &big.Int{}, 2
+	limit := &big.Int{}
 	limit.Exp(big.NewInt(10), big.NewInt(N-1), nil)
-	for ; b.Cmp(limit) < 0; i++ {
+	var i int
+	for i = 2; b.Cmp(limit) < 0; i++ {
 		a, b, c = b, c.Add(a, b), a
 	}
 	fmt.Println(i)
