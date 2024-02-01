@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/big"
 	"slices"
 )
 
@@ -29,10 +30,25 @@ func longAdd(a, b []int) []int {
 	return c
 }
 
-func main() {
+func solveCustom() {
 	a, b, i := []int{1}, []int{1}, 2
 	for ; len(b) < N; i++ {
 		a, b = b, longAdd(a, b)
 	}
 	fmt.Println(i)
+}
+
+func solveBuiltIn() {
+	a, b, c := big.NewInt(1), big.NewInt(1), &big.Int{}
+	limit, i := &big.Int{}, 2
+	limit.Exp(big.NewInt(10), big.NewInt(N-1), nil)
+	for ; b.Cmp(limit) < 0; i++ {
+		a, b, c = b, c.Add(a, b), a
+	}
+	fmt.Println(i)
+}
+
+func main() {
+	solveCustom()
+	solveBuiltIn()
 }
