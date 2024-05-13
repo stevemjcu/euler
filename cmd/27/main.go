@@ -5,8 +5,8 @@ import (
 	"math"
 )
 
-// Find the product of coefficients for the quadratic expression n^2 + an + b
-// where |a| < N and |b| <= N that produces the maximum number of consecutive
+// Find the product of coefficients for the quadratic expression n^2 + an + b,
+// where |a| < N and |b| <= N, that produces the maximum number of consecutive
 // primes, starting at n = 0.
 
 const N = 1000

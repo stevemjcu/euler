@@ -44,13 +44,16 @@ func findRemainderDistance(a, b, x int) int {
 }
 
 func main() {
-	t, tl := 0, 0
+	top := struct {
+		i int
+		l int
+	}{}
 	for i := 2; i < N; i++ {
-		if il := findRecurringCycleLength(i); il > tl {
-			t, tl = i, il
+		if l := findRecurringCycleLength(i); l > top.l {
+			top.i, top.l = i, l
 		}
 	}
-	fmt.Println(t)
+	fmt.Println(top.i)
 }
 
 // Not needed but saving for later
