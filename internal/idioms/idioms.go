@@ -26,6 +26,15 @@ func Reverse[S ~[]E, E any](s S) S {
 	return r
 }
 
+// ToDigits returns the digits in n.
+func ToDigits(n int) []int {
+	var res []int
+	for ; n != 0; n /= 10 {
+		res = append([]int{n % 10}, res...)
+	}
+	return res
+}
+
 // To avoid setting a precedent, I will try to use for loops whenever possible
 // rather than trying to implement too many functional-style helpers.
 
